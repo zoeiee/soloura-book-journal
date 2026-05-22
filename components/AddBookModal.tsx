@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Plus } from 'lucide-react'
-import { useBookStore, Book } from '@/store'
+import { useBookStore} from '@/store'
 
 interface AddBookModalProps {
   isOpen: boolean
