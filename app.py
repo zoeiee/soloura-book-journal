@@ -231,7 +231,7 @@ with st.expander("📝 Log a New Literary Read"):
         notes_input = st.text_area("Personal Reflections & Journal Entries")
         cover_input = st.text_input("Custom Book Cover Image Link (Optional URL)")
         
-        submit_btn = st.form_submit_with_button_kwargs(
+        submit_btn = st.form_submit_button(
             label="Append to Bookshelf", 
             type="primary"
         )
