@@ -1,7 +1,7 @@
 {
-  "name": "aditis-soloura",
+  "name": "soloura-book-journal",
   "version": "1.0.0",
-  "description": "A cozy, atmospheric book tracking and journaling application inspired by Letterboxd",
+  "description": "A cozy book journal app with dark aesthetic and warm accents",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,17 +15,15 @@
     "next": "^14.0.0",
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.292.0",
-    "tailwindcss": "^3.3.5",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.31",
     "zustand": "^4.4.2"
   },
   "devDependencies": {
+    "typescript": "^5.2.2",
     "@types/node": "^20.6.0",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
-    "typescript": "^5.2.2",
-    "eslint": "^8.49.0",
-    "eslint-config-next": "^14.0.0"
+    "tailwindcss": "^3.3.5",
+    "postcss": "^8.4.31",
+    "autoprefixer": "^10.4.16"
   }
 }

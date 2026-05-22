@@ -13,12 +13,13 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #1a1410 0%, #2a221d 50%, #1a1410 100%);
+  background: linear-gradient(135deg, #0d0b09 0%, #1a1410 50%, #0d0b09 100%);
   position: relative;
   overflow-x: hidden;
+  font-family: Georgia, serif;
 }
 
-/* Ambient candlelight glow background */
+/* Ambient candlelight background */
 body::before {
   content: '';
   position: fixed;
@@ -48,16 +49,16 @@ body::after {
   animation: glowPulse 8s ease-in-out infinite reverse;
 }
 
-/* Fine grain texture */
-body {
-  background-image:
-    linear-gradient(135deg, #1a1410 0%, #2a221d 50%, #1a1410 100%),
-    radial-gradient(
-      at 20% 50%,
-      rgba(244, 179, 102, 0.03) 0%,
-      transparent 50%
-    );
-  background-attachment: fixed;
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    filter: drop-shadow(0 0 8px rgba(244, 179, 102, 0.3));
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 16px rgba(244, 179, 102, 0.5));
+  }
 }
 
 /* Scrollbar styling */
@@ -72,64 +73,28 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgba(244, 179, 102, 0.3);
   border-radius: 5px;
-  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(244, 179, 102, 0.5);
 }
 
-/* Typography base styles */
-@layer base {
-  body {
-    @apply font-body text-cream leading-relaxed;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-semibold;
-  }
-
-  h1 {
-    @apply text-5xl;
-  }
-
-  h2 {
-    @apply text-4xl;
-  }
-
-  h3 {
-    @apply text-2xl;
-  }
-
-  a {
-    @apply transition-colors duration-300;
-  }
-
-  button {
-    @apply transition-all duration-300;
-  }
-}
-
 /* Component utilities */
 @layer components {
-  .glass-morph {
-    @apply bg-night-900/60 backdrop-blur-md border border-ember-600/20 rounded-lg;
+  .glass-card {
+    @apply bg-night-900/60 backdrop-blur-md border border-ember-600/20 rounded-lg transition-all duration-300;
   }
 
-  .card-glow {
-    @apply relative overflow-hidden rounded-lg border border-ember-600/30 shadow-candlelight bg-night-900/40;
+  .glass-card:hover {
+    @apply border-ember-600/50 shadow-candlelight;
   }
 
   .button-primary {
-    @apply px-6 py-3 bg-ember-600 text-night-950 font-semibold rounded-lg hover:bg-ember-500 active:scale-95 transition-all duration-300 hover:shadow-lg;
+    @apply px-6 py-3 bg-ember-600 text-night-950 font-semibold rounded-lg hover:bg-ember-700 active:scale-95 transition-all duration-300;
   }
 
   .button-secondary {
     @apply px-4 py-2 bg-night-800 text-cream border border-ember-600/30 rounded-lg hover:bg-night-700 hover:border-ember-600/50 transition-all duration-300;
-  }
-
-  .text-gradient {
-    @apply bg-gradient-to-r from-ember-300 to-ember-400 bg-clip-text text-transparent;
   }
 
   .input-field {
@@ -137,36 +102,6 @@ body {
   }
 
   .prose-quote {
-    @apply relative pl-6 italic text-cream/80 border-l-2 border-ember-600/50 my-4;
+    @apply relative pl-6 italic text-cream/80 border-l-2 border-ember-700;
   }
-}
-
-/* Animation utilities */
-@layer utilities {
-  .animate-in {
-    animation: pageSlideUp 0.5s ease-out;
-  }
-
-  .group:hover .group-hover\:glow {
-    filter: drop-shadow(0 0 12px rgba(244, 179, 102, 0.4));
-  }
-}
-
-/* Floating scroll indicator */
-.scroll-smooth-indicator {
-  transition: all 0.3s ease;
-}
-
-/* Modal backdrop */
-.modal-backdrop {
-  animation: pageFade 0.3s ease-out;
-}
-
-/* Tooltip styles */
-.tooltip {
-  @apply absolute hidden absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-night-800 text-cream text-sm rounded whitespace-nowrap z-50 pointer-events-none;
-}
-
-.tooltip.visible {
-  @apply block animate-in;
 }

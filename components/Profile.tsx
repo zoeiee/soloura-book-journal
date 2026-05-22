@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { BookOpen, Star, Flame, Clock } from 'lucide-react'
-import { useBookStore } from '@/lib/store'
+import { useBookStore } from '@/store'
 
 export function Profile() {
   const books = useBookStore((state) => state.books)
@@ -53,25 +53,13 @@ export function Profile() {
     >
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Hero Section */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <div className="mb-4">
-            <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-ember-500 to-ember-700 flex items-center justify-center shadow-lg">
-              <BookOpen className="w-10 h-10 text-night-950" />
-            </div>
+        <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-ember-500 to-ember-700 flex items-center justify-center shadow-candlelight mb-4">
+            <BookOpen className="w-10 h-10 text-night-950" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-gradient mb-2">
-            Aditi's Soloura
-          </h1>
-          <p className="text-ember-300/60 font-light tracking-widest uppercase text-sm mb-6">
-            nir (aurenya)
-          </p>
-          <p className="text-cream/70 max-w-2xl mx-auto text-lg leading-relaxed">
-            A sanctuary for book lovers. Where every page turned is a moment cherished, and
-            every reflection becomes a memory.
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-ember-400 mb-2">Soloura</h1>
+          <p className="text-cream/70 max-w-2xl mx-auto text-base leading-relaxed">
+            Your personal book journal. Track, reflect, and celebrate every page you turn.
           </p>
         </motion.div>
 
@@ -96,7 +84,7 @@ export function Profile() {
               color: 'from-amber-500 to-amber-600',
             },
             {
-              label: 'Currently Reading',
+              label: 'Reading',
               value: stats.reading,
               icon: Flame,
               color: 'from-orange-500 to-orange-600',
@@ -111,10 +99,10 @@ export function Profile() {
             <motion.div
               key={idx}
               variants={item}
-              className="p-6 rounded-xl border border-ember-600/20 bg-night-900/60 hover:border-ember-600/50 transition-all"
+              className="p-6 rounded-xl border border-ember-600/20 glass-card"
               whileHover={{ y: -4 }}
             >
-              <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center mb-3 shadow-md`}>
+              <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center mb-3`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
               <p className="text-cream/60 text-sm font-semibold mb-1">{label}</p>
@@ -123,10 +111,10 @@ export function Profile() {
           ))}
         </motion.div>
 
-        {/* Rating Stats */}
+        {/* Average Rating */}
         {stats.averageRating !== 'N/A' && (
           <motion.div
-            className="mb-12 p-6 rounded-xl border border-ember-600/20 bg-night-900/60"
+            className="mb-12 p-6 rounded-xl border border-ember-600/20 glass-card"
             variants={item}
             initial="hidden"
             animate="show"
@@ -138,11 +126,11 @@ export function Profile() {
             <div className="flex items-center gap-4">
               <div className="text-4xl font-bold text-amber-300">{stats.averageRating}</div>
               <div className="flex gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
+                {[1, 2, 3, 4, 5].map((i) => (
                   <Star
                     key={i}
                     className={`w-6 h-6 ${
-                      i < Math.round(parseFloat(stats.averageRating as string))
+                      i <= Math.round(parseFloat(stats.averageRating as string))
                         ? 'fill-amber-400 text-amber-400'
                         : 'text-night-600'
                     }`}
@@ -155,27 +143,18 @@ export function Profile() {
 
         {/* Recent Books */}
         {recentBooks.length > 0 && (
-          <motion.div
-            className="mb-12"
-            variants={container}
-            initial="hidden"
-            animate="show"
-          >
-            <h2 className="text-2xl font-serif font-bold text-cream mb-4">
-              📚 Recently Added
-            </h2>
+          <motion.div className="mb-12" variants={container} initial="hidden" animate="show">
+            <h2 className="text-2xl font-serif font-bold text-cream mb-4">📚 Recently Added</h2>
             <div className="space-y-2">
               {recentBooks.map((book, idx) => (
                 <motion.div
                   key={book.id}
                   variants={item}
-                  className="p-4 rounded-lg border border-ember-600/20 bg-night-900/40 hover:border-ember-600/50 transition-all"
+                  className="p-4 rounded-lg border border-ember-600/20 glass-card"
                 >
                   <p className="font-semibold text-cream">{book.title}</p>
                   <p className="text-sm text-ember-300/70">{book.author}</p>
-                  <p className="text-xs text-cream/40 mt-1">
-                    Added {new Date(book.dateAdded).toLocaleDateString()}
-                  </p>
+                  <p className="text-xs text-cream/40 mt-1">Added {book.dateAdded}</p>
                 </motion.div>
               ))}
             </div>
@@ -184,21 +163,14 @@ export function Profile() {
 
         {/* Top Rated Books */}
         {topRatedBooks.length > 0 && (
-          <motion.div
-            className="mb-12"
-            variants={container}
-            initial="hidden"
-            animate="show"
-          >
-            <h2 className="text-2xl font-serif font-bold text-cream mb-4">
-              ⭐ Top Rated
-            </h2>
+          <motion.div className="mb-12" variants={container} initial="hidden" animate="show">
+            <h2 className="text-2xl font-serif font-bold text-cream mb-4">⭐ Top Rated</h2>
             <div className="space-y-2">
               {topRatedBooks.map((book, idx) => (
                 <motion.div
                   key={book.id}
                   variants={item}
-                  className="p-4 rounded-lg border border-ember-600/20 bg-night-900/40 hover:border-ember-600/50 transition-all"
+                  className="p-4 rounded-lg border border-ember-600/20 glass-card"
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -206,11 +178,11 @@ export function Profile() {
                       <p className="text-sm text-ember-300/70">{book.author}</p>
                     </div>
                     <div className="flex gap-0.5">
-                      {Array.from({ length: 5 }).map((_, i) => (
+                      {[1, 2, 3, 4, 5].map((i) => (
                         <Star
                           key={i}
                           className={`w-4 h-4 ${
-                            i < (book.rating || 0)
+                            i <= (book.rating || 0)
                               ? 'fill-amber-400 text-amber-400'
                               : 'text-night-600'
                           }`}
@@ -223,22 +195,6 @@ export function Profile() {
             </div>
           </motion.div>
         )}
-
-        {/* About Section */}
-        <motion.div
-          className="mt-16 p-8 rounded-xl border border-ember-600/30 bg-night-900/60"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <h3 className="text-xl font-serif font-bold text-cream mb-4">About This Space</h3>
-          <p className="text-cream/70 leading-relaxed">
-            Aditi's Soloura is a personal sanctuary for tracking and reflecting on books. Like
-            Letterboxd for literature, it celebrates the intimate journey of reading—capturing
-            not just what we've read, but how it made us feel. Every thought, every cherished
-            quote, and every rating is a testament to the transformative power of words.
-          </p>
-        </motion.div>
       </div>
     </motion.div>
   )
